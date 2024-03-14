@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Session } from "next-auth";
 import Header from "@/components/header";
-import { SessionProvider } from "@/components/session-provider";
+import { MonoCloudAuthProvider } from "@monocloud/monocloud-nextjs/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,19 +13,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  session,
 }: {
-  children: React.ReactNode,
-  session: Session;
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <SessionProvider session={session}>
+    <html lang='en'>
+      <MonoCloudAuthProvider>
         <body className={inter.className}>
           <Header />
           {children}
         </body>
-      </SessionProvider>
+      </MonoCloudAuthProvider>
     </html>
   );
 }
